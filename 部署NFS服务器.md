@@ -8,7 +8,7 @@
 
 2.root用户登陆系统
 
-![](C:\Users\86188\AppData\Roaming\marktext\images\2023-05-25-19-07-02-image.png)
+![](NFS_img/1.png)
 
 3.修改主机名，方便后续实验区分出各个主机
 
@@ -16,21 +16,21 @@
 hostnamectl  set-hostname  server 
 ```
 
-<img src="file:///C:/Users/86188/AppData/Roaming/marktext/images/2023-05-25-19-09-36-image.png" title="" alt="" width="605">
+<img title="" src="NFS_img/2.png" alt="" width="605">
 
 将服务器主机名修改为 Server，对应的将客户机1主机名修改为Cllient1，客户机2主机名修改为Cllient2
 
 4.查看当前nfs版本
 
-![](C:\Users\86188\Desktop\img\2.png)
+![](NFS_img/3.png)
 
 可以看到当前版本为2.6.2.
 
 （OpenCloudOS已经安装了nfs_utils以及相关依赖包rpcbind，不需要再进行yum安装）
 
-![](C:\Users\86188\Desktop\img\4.png)
+![](NFS_img/4.png)
 
-![](C:\Users\86188\Desktop\img\5.png)
+![](NFS_img/5.png)
 
 5.查看服务器和客户机ip地址。
 
@@ -58,6 +58,8 @@ ifconfig
 mkdir /nfs/nfs_test 
 ```
 
+![](NFS_img/7.png)
+
 ###### 2.编辑配置文件
 
 nfs的主要配置文件为/etc/exports，其中列出了共享的目录，允许的用户以及用户选项。
@@ -82,7 +84,7 @@ systemctl stop firewalld
 systemctl enable firewalld
 ```
 
-![](C:\Users\86188\Desktop\img\9.png)
+![](NFS_img/9.png)
 
 如果不关闭防火墙的话，客户机将会被禁止访问服务器。
 
@@ -93,7 +95,7 @@ systemctl stop firewalld
 systemctl enable firewalld
 ```
 
-<img title="" src="file:///C:/Users/86188/Desktop/img/11.png" alt="" data-align="inline">
+<img title="" src="NFS_img/11.png" alt="" data-align="inline">
 
 ###### 5.检查本地资源抛出情况
 
@@ -101,7 +103,7 @@ systemctl enable firewalld
 showmount -e 192.168.77.128
 ```
 
-![](C:\Users\86188\Desktop\img\12.png)
+![](NFS_img/16.png)
 
 可以看到，/nfs/nfs_test被成功抛出。
 
@@ -117,11 +119,11 @@ showmount -e 192.168.77.128
 
 客户端1： 193.168.77.129
 
-![](C:\Users\86188\Desktop\img\12.png)
+![](NFS_img/12.png)
 
 客户端2：193.168.77.130
 
-<img title="" src="file:///C:/Users/86188/Desktop/img/13.png" alt="" data-align="inline">
+<img title="" src="NFS_img/13.png" alt="" data-align="inline">
 
 ###### 2.挂载到本地目录
 
@@ -136,13 +138,13 @@ mount -t   nfs   192.168.77.127:/nfs/nfs_test   /nfs/dir1
 
 客户机1：193.168.77.129
 
-![](C:\Users\86188\Desktop\img\14.png)
+![](NFS_img/14.png)
 
 使用df -ht命令可以查看各个文件占用磁盘情况，可以看到挂载成功。
 
 客户机2：193.168.77.130
 
-![](C:\Users\86188\Desktop\img\15.png)
+![](NFS_img/15.png)
 
 对于客户机2，由于没有权限被禁止访问。
 
